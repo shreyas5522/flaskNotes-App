@@ -81,11 +81,12 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
-            return redirect(url_for('notes'))
+            return redirect(url_for('index'))  # Changed from 'home' to 'index'
         else:
             flash('Login unsuccessful. Please check your email and password.', 'danger')
 
     return render_template('login.html', form=form)
+
 
 @app.route('/notes')
 @login_required
